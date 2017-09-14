@@ -50,6 +50,19 @@ public class CartoriosController {
 		return new ModelAndView("redirect:cartorios/form");
 	}
 	
+	@RequestMapping("editar")
+	public String editar(Integer id){
+		System.out.println(id);
+		return "redirect:/cartorios/form";
+	}
+	
+	@RequestMapping("remover")
+	public String remover(Integer id, RedirectAttributes redirectAttributes){
+		cartorioDAO.remove(id);
+		redirectAttributes.addFlashAttribute("sucesso","Cartório removido com sucesso!");
+		return "redirect:/cartorios/form";
+	}
+	
 	// método para fazer a listagem RESTFul
 	@RequestMapping(method=RequestMethod.GET)
 	public String cartorios(){

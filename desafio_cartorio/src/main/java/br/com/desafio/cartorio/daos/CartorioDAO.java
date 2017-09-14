@@ -25,4 +25,14 @@ public class CartorioDAO {
 		return manager.createQuery("select c from Cartorio c", Cartorio.class).getResultList();
 	}
 	
+	public Cartorio find(Integer id){
+		return manager.createQuery("select distinct(c) from Cartorio c where c.id = :id", Cartorio.class).
+				setParameter("id", id).getSingleResult();
+	}
+	
+	public void remove(Integer id){
+		Cartorio cartorio = find(id);
+		manager.remove(cartorio);
+	}
+	
 }

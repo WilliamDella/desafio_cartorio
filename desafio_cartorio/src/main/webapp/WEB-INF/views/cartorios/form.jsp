@@ -10,6 +10,8 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
  integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
 <title>CRUD de Cartórios</title>
+<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/estilo.css"/>"/>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
 </head>
 <body style="background-color: #3580B5">
 	<div style="margin: 50px"></div>
@@ -32,25 +34,30 @@
 					    </div>	
 					    <p> ${sucesso} </p>	
 					    <div class="form-group row">
-					    <table class="table table-hove table-responsive table-bordered table-sm">
+					    <table class="table table-hove table-responsive table-bordered table-sm" id="tabela">
 						  <thead>
-						    <tr>
-						      <th>ID</th>
-						      <th>Cartório</th>
-						      <th>Editar</th>
-						      <th>Remover</th>
+						  	<tr>
+						  		<th></th>
+						  		<th><input type="text" class="form-control" placeholder="Filtrar" name="filtro"></th>
+						  		<th></th>
+						  		<th></th>
+						  	</tr>
+						    <tr class="bg-info">
+						      <th class="cabeçalho">ID</th>
+						      <th class="cabeçalho">Cartório</th>
+						      <th class="cabeçalho">Editar</th>
+						      <th class="cabeçalho">Remover</th>
 						    </tr>
 						  </thead>
 						  <tbody>
 						    <c:forEach items="${cartorios}" var="cart">
-						        <tr>
+						        <tr class="table-info">
 						            <td>${cart.id}</td>
 						            <td>${cart.cartorio}</td>
 						            <td>
-						            	<button type="button" class="btn btn-link">Editar</button>
-						            </td>
+						            	<a href="editar?id=${cart.id}" class="badge badge-primary">Editar</a>
 						            <td>
-						            	<button type="button" class="btn btn-link">Remover</button>
+						            	<a href="remover?id=${cart.id}" class="badge badge-danger">Remover</a>
 						            </td>
 						        </tr>
 						    </c:forEach>
@@ -63,5 +70,6 @@
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript" src="<c:url value="/resources/js/filtro.js"/>"></script>
 </body>
 </html>
