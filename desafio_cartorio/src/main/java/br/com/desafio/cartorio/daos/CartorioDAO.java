@@ -34,5 +34,14 @@ public class CartorioDAO {
 		Cartorio cartorio = find(id);
 		manager.remove(cartorio);
 	}
+
+	// verificar outro modo de atualizar
+	public void editar(Cartorio cartorio) {
+		cartorio.setCartorio(cartorio.getCartorio());
+	}
+
+	public List<Cartorio> findAll() {
+		return manager.createQuery("select c from Cartorio c", Cartorio.class).getResultList();
+	}
 	
 }

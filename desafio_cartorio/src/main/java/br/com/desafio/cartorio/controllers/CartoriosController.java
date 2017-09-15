@@ -6,11 +6,14 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -50,10 +53,18 @@ public class CartoriosController {
 		return new ModelAndView("redirect:cartorios/form");
 	}
 	
-	@RequestMapping("editar")
-	public String editar(Integer id){
+	@RequestMapping(value="editar/{id}")
+	public String editar(@PathVariable Integer id, Model model){
+		Cartorio cartorio = cartorioDAO.find(id);
+		model.addAttribute("cartorio", cartorio);
+		return "cartorios/editar";
+	}
+	
+	@RequestMapping("/alteraCartorio")
+	public ModelAndView altera(Integer id) {
 		System.out.println(id);
-		return "redirect:/cartorios/form";
+		//cartorioDAO.editar(cartorio);
+		return new ModelAndView("redirect:/cartorios/form");
 	}
 	
 	@RequestMapping("remover")
@@ -63,9 +74,9 @@ public class CartoriosController {
 		return "redirect:/cartorios/form";
 	}
 	
-	// método para fazer a listagem RESTFul
-	@RequestMapping(method=RequestMethod.GET)
-	public String cartorios(){
-		return "/cartorios/sucesso";
+	@RequestMapping(method=RequestMethod.GET, produces="application/json")
+	@ResponseBody
+	public List<Cartorio> retornaCartorios(){
+		return cartorioDAO.findAll();
 	}
 }
