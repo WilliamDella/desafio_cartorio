@@ -1,12 +1,18 @@
 package br.com.desafio.cartorio.conf;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.web.accept.ContentNegotiationManager;
+import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.view.ContentNegotiatingViewResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import br.com.desafio.cartorio.controllers.IndexController;
@@ -38,4 +44,15 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter{
 		
 		return messageSource;
 	}
+	
+	@Bean
+    public ViewResolver contentNegotiationViewResolver(ContentNegotiationManager manager) {
+        List<ViewResolver> viewResolvers = new ArrayList<>();
+        viewResolvers.add(internalResourceViewResolver());
+        viewResolvers.add(new JsonViewResolver());
+        ContentNegotiatingViewResolver resolver = new ContentNegotiatingViewResolver();
+        resolver.setViewResolvers(viewResolvers );
+        resolver.setContentNegotiationManager(manager);
+        return resolver;
+    }
 }

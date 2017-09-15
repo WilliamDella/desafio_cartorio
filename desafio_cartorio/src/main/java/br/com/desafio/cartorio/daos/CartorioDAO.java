@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,13 +36,12 @@ public class CartorioDAO {
 		manager.remove(cartorio);
 	}
 
-	// verificar outro modo de atualizar
-	public void editar(Cartorio cartorio) {
-		cartorio.setCartorio(cartorio.getCartorio());
-	}
-
-	public List<Cartorio> findAll() {
-		return manager.createQuery("select c from Cartorio c", Cartorio.class).getResultList();
-	}
-	
+	public void atualizar(Integer id, Cartorio cart) {		
+		Cartorio cart2 = find(id);
+        cart2.setCartorio(cart.getCartorio());
+		manager.merge(cart2);
+	}	
 }
+
+
+

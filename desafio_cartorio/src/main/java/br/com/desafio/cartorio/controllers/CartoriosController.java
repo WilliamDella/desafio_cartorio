@@ -1,5 +1,6 @@
 package br.com.desafio.cartorio.controllers;
 
+import java.text.Normalizer.Form;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -60,10 +62,9 @@ public class CartoriosController {
 		return "cartorios/editar";
 	}
 	
-	@RequestMapping("/alteraCartorio")
-	public ModelAndView altera(Integer id) {
-		System.out.println(id);
-		//cartorioDAO.editar(cartorio);
+	@RequestMapping(value="/alteraCartorio", method = RequestMethod.POST)
+	public ModelAndView altera(Integer id, @ModelAttribute("cartorio") Cartorio cartorio, Model model){
+		cartorioDAO.atualizar(id, cartorio);
 		return new ModelAndView("redirect:/cartorios/form");
 	}
 	
@@ -77,6 +78,6 @@ public class CartoriosController {
 	@RequestMapping(method=RequestMethod.GET, produces="application/json")
 	@ResponseBody
 	public List<Cartorio> retornaCartorios(){
-		return cartorioDAO.findAll();
+		return cartorioDAO.listar();
 	}
 }

@@ -21,17 +21,17 @@
 				  	<h5>Editar Cartório</h5>
 				  </div>
 				  <div class="card-body">
-				    <form:form action="${s:mvcUrl('CC#altera').arg(0, cartorio.id).build()}" method="post" commandName="cartorio">
+				    <form:form action="${s:mvcUrl('CC#altera').arg(0, cartorio.id).build()}" method="post" modelAttribute="cartorio">
 					 	<div class="form-group row">
-					      <label class="col-sm-2 col-form-label">ID:</label>
+					      <form:label path="id" class="col-sm-2 col-form-label">ID:</form:label>
 					      <div class="col-sm-2">
-					      	 <input type="text" readonly class="form-control-plaintext" value="${cartorio.id}">
+					      	 <form:input path="id" type="text" readonly="true" class="form-control-plaintext" value="${cartorio.id}"/>
 					      </div>
 					  	</div>
 					 	<div class="form-group row">					 	  
-					      <label class="col-sm-2 col-form-label">Cartório</label>
+					      <form:label path="cartorio" class="col-sm-2 col-form-label">Cartório</form:label>
 					      <div class="col-sm-8">
-					        <input type="text" class="form-control" name="cartorio" value="${cartorio.cartorio}">
+					        <form:input path="cartorio" type="text" class="form-control" name="cartorio" value="${cartorio.cartorio}"/>
 					      </div>
 					      <button type="submit" class="btn btn-outline-dark">Editar</button>
 					    </div>

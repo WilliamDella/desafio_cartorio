@@ -70,6 +70,9 @@
 					    </div>			 	
 					</form:form>
 				  </div>
+				  <div class="card-footer text-muted">
+				    <a href="/desafio_cartorio" class="badge badge-danger">voltar</a>
+				  </div>
 				</div>
 			</div>
 		</div>
